@@ -1,8 +1,14 @@
 from test_framework import generic_test
-
+from collections import Counter
 
 def is_letter_constructible_from_magazine(letter_text, magazine_text):
     # TODO - you fill in here.
+    counter = Counter(letter_text)
+    for c in magazine_text:
+        if c in counter:
+            counter[c] -= 1
+            if counter[c] == 0: del counter[c]
+    if counter: return False
     return True
 
 

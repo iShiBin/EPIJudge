@@ -1,10 +1,12 @@
 from test_framework import generic_test
 
-
 def count_bits(x):
-    # TODO - you fill in here.
-    return 0
-
+    # n = 0
+    # while x:
+    #     n += x & 1
+    #     x >>= 1
+    # return n
+    return bin(x).count('1')
 
 if __name__ == '__main__':
     exit(

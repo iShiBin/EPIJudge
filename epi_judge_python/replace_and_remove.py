@@ -3,10 +3,18 @@ import functools
 from test_framework import generic_test
 from test_framework.test_utils import enable_executor_hook
 
-
 def replace_and_remove(size, s):
-    # TODO - you fill in here.
-    return 0
+    result = []
+    
+    for c in s[:size]:
+        if c == 'a': 
+            result.append('dd')
+        elif c == 'b':
+            continue
+        else:
+            result.append(c)
+
+    return ''.join(result)
 
 
 @enable_executor_hook

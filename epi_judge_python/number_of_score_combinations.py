@@ -1,8 +1,11 @@
 from test_framework import generic_test
 
 
+scores = (2, 3, 7)
+
 def num_combinations_for_final_score(final_score, individual_play_scores):
     # TODO - you fill in here.
+        
     return 0
 
 

@@ -10,11 +10,31 @@ WHITE, BLACK = range(2)
 
 Coordinate = collections.namedtuple('Coordinate', ('x', 'y'))
 
-
 def search_maze(maze, s, e):
-    # TODO - you fill in here.
-    return []
+    entry = Coordinate(s[0], s[1])
+    path = []
+    search(maze, s, e, entry, path)
+    return path
 
+def search(maze, s, e, cur, path):
+    if not (0<= cur.x < len(maze) and 0<= cur.y < len(maze[cur.x]) and maze[cur.x][cur.y] == WHITE):
+        return False
+    path.append(cur)
+    maze[cur.x][cur.y] = BLACK
+    
+    if cur == e:
+        # print(path)
+        return True
+
+    if any((search(maze, s, e, Coordinate(cur.x-1, cur.y), path),
+            search(maze, s, e, Coordinate(cur.x, cur.y+1), path),
+            search(maze, s, e, Coordinate(cur.x+1, cur.y), path),
+            search(maze, s, e, Coordinate(cur.x, cur.y-1), path))):
+        return True
+    
+    del path[-1] # Cannot find a path, remove the entry added in path.append(cur)
+    # maze[cur.x][cur.y] = WHITE  # bug! No need to setback the value since this way is done.
+    return False
 
 def path_element_is_feasible(maze, prev, cur):
     if not ((0 <= cur.x < len(maze)) and
@@ -24,7 +44,6 @@ def path_element_is_feasible(maze, prev, cur):
            cur == (prev.x - 1, prev.y) or \
            cur == (prev.x, prev.y + 1) or \
            cur == (prev.x, prev.y - 1)
-
 
 @enable_executor_hook
 def search_maze_wrapper(executor, maze, s, e):
@@ -48,6 +67,4 @@ def search_maze_wrapper(executor, maze, s, e):
 
 
 if __name__ == '__main__':
-    exit(
-        generic_test.generic_test_main("search_maze.py", 'search_maze.tsv',
-                                       search_maze_wrapper))
+    exit(generic_test.generic_test_main("search_maze.py", 'search_maze.tsv',search_maze_wrapper))

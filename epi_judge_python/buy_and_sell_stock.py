@@ -1,9 +1,14 @@
 from test_framework import generic_test
 
-
+# 5.6
 def buy_and_sell_stock_once(prices):
     # TODO - you fill in here.
-    return 0.0
+    mi = prices[0]
+    ma = 0
+    for p in prices:
+        ma = max(ma, p - mi)
+        mi = min(mi, p)
+    return ma
 
 
 if __name__ == '__main__':

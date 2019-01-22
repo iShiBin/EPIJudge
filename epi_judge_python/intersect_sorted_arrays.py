@@ -3,7 +3,9 @@ from test_framework import generic_test
 
 def intersect_two_sorted_arrays(A, B):
     # TODO - you fill in here.
-    return []
+    intersection = list(set(A) & set(B))
+    intersection.sort()
+    return intersection
 
 
 if __name__ == '__main__':
